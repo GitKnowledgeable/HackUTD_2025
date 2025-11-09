@@ -4,27 +4,31 @@ import { useEffect, useState } from "react";
 
 export default function Carousel() {
     let [carouselIdx, setCarouselIdx] = useState(0);
-    let carouselSlideTiming = 5000;
+    let carouselSlideTiming = 10000;
+    let slideTimingBuffer = 7000;
+    let lastSlide = Date.now()
 
     let slideCount = 3;
 
-    // useEffect(() => {
-    //     const moveCarouselInterval = setInterval(() => {
-    //         setCarouselIdx((prev) => {
-    //             return (prev + 1) % (slideCount)
-    //         });
-    //     }, carouselSlideTiming)
+    useEffect(() => {
+        const moveCarouselInterval = setInterval(() => {
+            // Date.now() = number of milliseconds since Jan 1, 1970
+            if ((Date.now() - lastSlide) >= slideTimingBuffer) {
+                increaseCarouselIdx(1);
+                lastSlide = Date.now();
+            }
+        }, carouselSlideTiming);
 
-    //     return () => {
-    //         clearInterval(moveCarouselInterval);
-    //     }
-    // }, [])
+        return () => {
+            clearInterval(moveCarouselInterval);
+        }
+    }, [])
 
     const carouselStyle = {
         "left": "-" + carouselIdx*100 + "dvw"
     }
     const slideIdsStyle = {
-        "grid-template-columns": "repeat(" + slideCount + ", 1fr)",
+        "gridTemplateColumns": "repeat(" + slideCount + ", 1fr)",
     }
 
     const slideIds = [];
@@ -48,7 +52,7 @@ export default function Carousel() {
 
     return (
         <div className="carousel-container">
-            <button id="left-btn" onClick={() => increaseCarouselIdx(-1)}>&lt;</button>
+            <button id="left-btn" onClick={() => { increaseCarouselIdx(1); lastSlide = Date.now(); }}>&lt;</button>
             <div className="carousel" style={ carouselStyle }>
                 <CarouselSlide color="black" status="New Arrival" name="Tacoma TRD Pro" price="39,999" />
                 <CarouselSlide color="blue" status="New Arrival" name="Tacoma TRD Pro" price="39,999" />
@@ -57,7 +61,7 @@ export default function Carousel() {
             <div className="slide-ids" style={ slideIdsStyle }>
                 {slideIds}
             </div>
-            <button id="right-btn" onClick={() => increaseCarouselIdx(1)}>&gt;</button>
+            <button id="right-btn" onClick={() => { increaseCarouselIdx(1); lastSlide = Date.now(); }}>&gt;</button>
         </div>
     )
 }

@@ -2,7 +2,7 @@ import "../css/CarouselSlide.css"
 export default function CarouselSlide(props) {
 
     const style = {
-        "background-color": props.color,
+        "backgroundColor": props.color,
     }
     return (
         <div className="carousel-slide" style={ style }>
@@ -11,7 +11,7 @@ export default function CarouselSlide(props) {
                 <span className="name">{ props.name }</span>
                 <span className="price-info">Starting at <span className="price">${ props.price }</span></span>
                 <div className="buttons">
-                    <button class="covered">Explore Now</button>
+                    <button className="covered">Explore Now</button>
                     <button>Schedule Visit</button>
                 </div>
             </div>

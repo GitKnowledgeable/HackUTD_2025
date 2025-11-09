@@ -9,7 +9,7 @@
 
 .carousel-slide {
     width: 100dvw;
-    height: 90dvh;
+    height: 100dvh;
     background: var(--secondary);
 }
 .carousel-slide .text {
