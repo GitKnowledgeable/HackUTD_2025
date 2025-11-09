@@ -1,0 +1,30 @@
+:root {
+    --status-fs: 3rem;
+    --name-fs: 5rem;
+    --price-fs: 2rem;
+}
+
+.carousel-slide {
+    width: 100%;
+    background: red;
+    height: 90dvh;
+}
+.carousel-slide .text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    border: 1px solid #000;
+    height: 100%;
+    gap: 1em;
+    padding: 1em;
+}
+.status {
+    font-size: var(--status-fs);
+}
+.name {
+    font-size: var(--name-fs);
+}
+.price-info {
+    font-size: var(--price-fs);
+}
