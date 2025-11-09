@@ -1,0 +1,61 @@
+:root {
+    --move-btn-sidelen: 4em;
+}
+.carousel-container {
+    width: 100dvw;
+    display: flex;
+    overflow: hidden;
+    position: relative;
+}
+.carousel-container .carousel {
+    display: flex;
+    position: relative;
+    left: 0; /* Change intervals of 100dvw to move */
+    transition: left ease-in-out 200ms;
+}
+
+.carousel-container .slide-ids {
+    position: absolute;
+    bottom: 10em;
+    left: 50%; right: 50%;
+    transform: translateX(-50%);
+    width: 10%;
+    height: 10px;
+    /* background: yellow; */
+    display: flex;
+    justify-content: center;
+    gap: 0.5em;
+}
+.carousel-container .slide-ids .slide-id {
+    border-radius: 50px;
+    border: none;
+    width: 10%;
+    transition: width linear 200ms, opacity linear 200ms;
+    opacity: 0.5;
+}
+.carousel-container .slide-ids .slide-id.active {
+    width: 80%;
+    opacity: 1;
+}
+
+/* Left and right arrow */
+.carousel-container button:is(#left-btn, #right-btn) {
+    position: absolute;
+    top: 50%; bottom: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.3);
+    color: white;
+    display: grid; place-items: center;
+    z-index: 1;
+    width: var(--move-btn-sidelen);
+    height: var(--move-btn-sidelen);
+    font-size: 1rem;
+    border: none;
+    border-radius: 50%;
+}
+.carousel-container button#left-btn {
+    left: 0.5em;
+}
+.carousel-container button#right-btn {
+    right: 0.5em;
+}

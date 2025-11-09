@@ -1,13 +1,17 @@
 import "../css/CarouselSlide.css"
-export default function CarouselSlide() {
+export default function CarouselSlide(props) {
+
+    const style = {
+        "backgroundColor": props.color,
+    }
     return (
-        <div className="carousel-slide">
+        <div className="carousel-slide" style={ style }>
             <div className="text">
-                <span className="status">New Arrival</span>
-                <span className="name">Tacoma TRD Pro</span>
-                <span className="price-info">Starting at <span className="price">$39,999</span></span>
+                <span className="status">{ props.status }</span>
+                <span className="name">{ props.name }</span>
+                <span className="price-info">Starting at <span className="price">${ props.price }</span></span>
                 <div className="buttons">
-                    <button>Explore Now</button>
+                    <button className="covered">Explore Now</button>
                     <button>Schedule Visit</button>
                 </div>
             </div>

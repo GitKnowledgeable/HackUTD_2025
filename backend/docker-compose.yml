@@ -1,0 +1,86 @@
+services:
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_DATABASE: appdb
+      MYSQL_USER: appuser
+      MYSQL_PASSWORD: apppass
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_INITDB_SKIP_TZINFO: "1"
+    command: ["--character-set-server=utf8mb4","--collation-server=utf8mb4_unicode_ci"]
+    ports: ["3306:3306"]
+    volumes: ["mysqldata:/var/lib/mysql"]
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-uroot", "-proot"]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+      start_period: 10s
+
+  api:
+    build: .
+    environment:
+      DATABASE_URL: mysql+pymysql://appuser:apppass@db:3306/appdb
+      CORS_ORIGINS: http://localhost:5173
+      SECRET_KEY: dev
+      PORT: 8080
+    ports: ["8080:8080"]
+    depends_on:
+      db:
+        condition: service_healthy
+
+  frontend:
+    build: ../web
+    container_name: frontend
+    working_dir: /app
+    command: ["npm", "run", "dev", "--", "--host", "0.0.0.0"]
+    ports:
+      - "5173:5173"
+    environment:
+      NODE_ENV: development
+    volumes:
+      - ../web:/app
+      - /app/node_modules
+    depends_on:
+      - api
+
+  frontend-tests:
+    build: ../web
+    container_name: frontend-tests
+    working_dir: /app
+    command: ["npm", "test"]
+    volumes:
+      - ../web:/app
+      - /app/node_modules
+
+  selenium:
+    image: selenium/standalone-chrome:latest
+    container_name: selenium
+    platform: linux/amd64
+    ports:
+      - "4444:4444"
+    shm_size: 2gb
+    environment:
+      SE_NODE_SESSION_TIMEOUT: 60
+      SE_START_XVFB: "true"
+
+  acceptance-tests:
+    build:
+      context: ../
+      dockerfile: web/Dockerfile.acceptance
+    container_name: acceptance-tests
+    working_dir: /app
+    command: >
+      sh -c "while ! curl -s http://selenium:4444/wd/hub/status; do sleep 1; done;
+              pytest -v test_acceptance.py"
+    environment:
+      FRONTEND_URL: http://frontend:5173
+      SELENIUM_URL: http://selenium:4444/wd/hub
+    volumes:
+      - ../web:/app
+    depends_on:
+      - frontend
+      - selenium
+
+volumes:
+  mysqldata:
