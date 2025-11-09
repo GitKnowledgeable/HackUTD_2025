@@ -8,7 +8,7 @@
 }
 
 .carousel-slide {
-    width: 100%;
+    width: 100dvw;
     height: 90dvh;
     background: var(--secondary);
 }

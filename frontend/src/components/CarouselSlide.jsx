@@ -1,7 +1,11 @@
 import "../css/CarouselSlide.css"
 export default function CarouselSlide(props) {
+
+    const style = {
+        "background-color": props.color,
+    }
     return (
-        <div className="carousel-slide">
+        <div className="carousel-slide" style={ style }>
             <div className="text">
                 <span className="status">{ props.status }</span>
                 <span className="name">{ props.name }</span>
