@@ -1,13 +1,16 @@
 :root {
     --status-fs: 3rem;
-    --name-fs: 5rem;
+    --name-fs: 7rem;
     --price-fs: 2rem;
+    --btn-fs: 1.2rem;
+
+    --buttons-wid: 40%;
 }
 
 .carousel-slide {
     width: 100%;
-    background: red;
     height: 90dvh;
+    background: var(--secondary);
 }
 .carousel-slide .text {
     display: flex;
@@ -18,13 +21,43 @@
     height: 100%;
     gap: 1em;
     padding: 1em;
+    color: white;
 }
 .status {
     font-size: var(--status-fs);
+    color: red;
+    font-weight: 100;
+    letter-spacing: 0.1cap;
 }
 .name {
     font-size: var(--name-fs);
+    font-weight: 800;
 }
 .price-info {
     font-size: var(--price-fs);
+    font-weight: 200;
+}
+
+.carousel-slide .buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1em;
+    width: var(--buttons-wid);
+}
+.carousel-slide .buttons button {
+    font-size: var(--btn-fs);
+    padding: 1em 0.5em;
+    border-radius: 10px;
+    border: none;
+    background: white;
+    transition: background-color linear 200ms, color linear 200ms, brightness linear 200ms;
+}
+.carousel-slide .buttons button.covered {
+    background: var(--primary);
+    color: white;
+}
+.carousel-slide .buttons button:hover {
+    background: var(--primary);
+    filter: brightness(0.9);
+    color: white;
 }
