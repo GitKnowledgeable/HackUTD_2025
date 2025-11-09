@@ -41,6 +41,8 @@ def get_cars_with_filters():
             return None if v is None else float(v)
 
         # String filters (partial, case-insensitive)
+        s_seats = request.args.get("seats")
+        s_type = request.args.get("type")
         s_model = request.args.get("model")
         s_trim = request.args.get("trim")
         s_drivetrain = request.args.get("drivetrain")
@@ -109,6 +111,10 @@ def get_cars_with_filters():
         # String partial matches (case-insensitive)
         if s_model:
             query = query.filter(Car.model.ilike(f"%{s_model}%"))
+        if s_type:
+            query = query.filter(Car.type.ilike(f"%{s_type}%"))
+        if s_seats:
+            query = query.filter(Car.seats.ilike(f"%{s_seats}%"))
         if s_trim:
             query = query.filter(Car.trim.ilike(f"%{s_trim}%"))
         if s_drivetrain:
@@ -139,6 +145,8 @@ def get_cars_with_filters():
                 "interior_color": getattr(c, "interior_color", None),
                 "interior_material": getattr(c, "interior_material", None),
                 "dealership_id": getattr(c, "dealership_id", None),
+                "type": getattr(c, "type", None),
+                "seats": getattr(c, "seats", None),
             }
             # Optionally include additional attributes if present
             if hasattr(c, "range_miles"):
