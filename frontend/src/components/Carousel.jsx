@@ -4,11 +4,33 @@ import { useEffect, useState } from "react";
 
 export default function Carousel() {
     let [carouselIdx, setCarouselIdx] = useState(0);
+
+    const carData = [
+        {
+            "status": "New Arrival",
+            "name": "Tacoma TRD Pro",
+            "price": "39,999",
+            "img": ""
+        },
+        {
+            "status": "New Arrival",
+            "name": "Tacoma TRD Pro",
+            "price": "39,999",
+            "img": ""
+        },
+        {
+            "status": "New Arrival",
+            "name": "Tacoma TRD Pro",
+            "price": "39,999",
+            "img": ""
+        },
+    ]
+
     let carouselSlideTiming = 10000;
     let slideTimingBuffer = 7000;
     let lastSlide = Date.now()
 
-    let slideCount = 3;
+    let slideCount = carData.length;
 
     useEffect(() => {
         const moveCarouselInterval = setInterval(() => {
@@ -32,6 +54,7 @@ export default function Carousel() {
     }
 
     const slideIds = [];
+    const slides = [];
     for (let i = 0; i < slideCount; i++) {
         slideIds.push(
             <button 
