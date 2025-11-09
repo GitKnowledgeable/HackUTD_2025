@@ -1,0 +1,42 @@
+.search-bar {
+    position: fixed;
+    bottom: 1em;
+    left: 1em; right: 1em;
+    padding: 2em;
+    z-index: 10; /* Always at top */
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 5px;
+}
+.search-bar form {
+    width: 100%;
+    position: relative;
+    display: grid; place-items: center;
+}
+.search-bar form label { 
+    position: absolute;
+    top: 0; bottom: 0;
+    left: 1em;
+
+    display: grid; place-items: center;
+    color: slategray;
+}
+.search-bar form input { 
+    padding: 1em 1em;
+    width: 100%;
+    border: none;
+    border-radius: 10px;
+}
+.search-bar form button[type="submit"] {
+    border-radius: 10px;
+    font-weight: 700;
+    border: none;
+    background-color: rgba(0, 0, 0, 0);
+    position: absolute;
+    top: 0; bottom: 0; 
+    right: 0;
+    font-size: 1rem;
+    padding: 0 1em;
+
+    display: grid;
+    place-items: center;
+}
