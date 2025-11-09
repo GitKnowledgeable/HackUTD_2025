@@ -12,6 +12,8 @@ class Car(Base):
     year: Mapped[int] = mapped_column(Integer)
     price: Mapped[float] = mapped_column(Integer)
     trim: Mapped[str] = mapped_column(String(100))
+    type: Mapped[str] = mapped_column(String(50))
+    seats: Mapped[int] = mapped_column(Integer)
     mileage: Mapped[int] = mapped_column(Integer)
     range_miles: Mapped[int] = mapped_column(Integer)
     gas_mileage: Mapped[float] = mapped_column(Integer)
